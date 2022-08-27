@@ -1,0 +1,6 @@
+*.jar
+**/world*
+**/logs
+**/*.skin
+**/*.db
+

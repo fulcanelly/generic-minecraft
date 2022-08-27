@@ -1,0 +1,32 @@
+version: "3.3"
+
+
+services:
+  proxy:
+    stdin_open: true
+    tty: true
+    restart: always 
+    build: ./bungee
+    volumes:
+            - ./bungee:/app
+    networks: ['nn']
+    ports:
+      - 25565:25565/tcp
+
+  main:
+    networks: ['nn']
+    stdin_open: true
+    tty: true
+    restart: always 
+
+    volumes: 
+      - './mine:/app'
+           #        - '${PWD}/mine:/app'  
+    build: ./generic_server
+
+networks: {
+  nn: {}
+}
+
+volumes:
+  mine:

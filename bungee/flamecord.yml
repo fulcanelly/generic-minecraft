@@ -1,0 +1,11 @@
+logger:
+  initialhandler: true
+  exceptions: true
+  dump: true
+  haproxy: true
+firewall:
+  enabled: true
+  notify: true
+  seconds: 60
+  names:
+  - mcspam
