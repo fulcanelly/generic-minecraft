@@ -1,0 +1,44 @@
+
+plugins:
+  core-protect: 
+    name: coreprotect
+    source: spigotmc
+    url: https://www.spigotmc.org/resources/coreprotect.8631/history
+    version: null
+
+  via-version:
+    name: ViaVersion
+
+  login:
+    name: LoginSecurity
+
+  skins:
+    name: SkinsRestorer 
+
+  sleep:
+    name: SinglePlayerSleep
+
+  protocol: 
+    name: ProtocolLib
+
+  invsee:
+    name: InvSee++
+
+  luck-rerms:
+    name: LuckPerms
+
+  suicide:
+    name: Suicide
+
+  gsit:
+      name: gsit
+proxy: 
+  name: noname
+  plugins: []
+  port: 25565
+
+servers:
+  main:
+    folder: ./main
+    plugins:
+      - core-protect
