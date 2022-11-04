@@ -5,12 +5,12 @@ import time
 import asyncstdlib.itertools as itertools
 import math
 
-api_id = 0 #!! 
-api_hash = "0" #!
+api_id = 741567 #!! 
+api_hash = "29bca2c6df033b2a62fbc6e6c57892c9" #!
 
 uvloop.install()
 
-app = Client("my_account")
+app = Client("my_account", api_id, api_hash)
 
 
 def is_file(msg):
