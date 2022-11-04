@@ -1,6 +1,6 @@
 How to get server files 
 
-### 1) Obtain telegram API hash and id
+### 1) Obtain telegram API hash and id and put them to loader.py file
 
  https://core.telegram.org/api/obtaining_api_id
 
