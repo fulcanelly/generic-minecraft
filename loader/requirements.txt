@@ -1,3 +1,4 @@
 uvloop
 pyrogram>=2.0.26
 asyncstdlib
+tgcrypto
