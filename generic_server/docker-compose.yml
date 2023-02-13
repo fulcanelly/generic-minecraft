@@ -1,0 +1,14 @@
+version: "3.3"
+
+
+services:
+  main:
+    stdin_open: true
+    tty: true
+
+    restart: always 
+
+    volumes: 
+      - './:/app'
+
+    build: ./
