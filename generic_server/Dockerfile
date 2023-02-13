@@ -1,7 +1,9 @@
-FROM openjdk:17
+FROM openjdk:17-buster
 
 WORKDIR /app
 
-COPY .  . 
-CMD ["sh", "start.sh"]
+RUN apt-get update
 
+RUN apt-get install -y tmux
+
+CMD tmux new-session -s main -d 'sh start.sh; exec bash' && cat
