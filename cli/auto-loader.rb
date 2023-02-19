@@ -104,7 +104,7 @@ def load_plugins(config)
 
     next puts "skip".yellow if File.exists?(file_name)
 
-    Dir.mkdir('out') unless Dir.exists?('out')
+    Dir.mkdir('out') unless Dir.exist?('out')
 
     # download
     open(file_name, 'w') do |out|
