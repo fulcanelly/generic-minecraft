@@ -102,6 +102,8 @@ def load_plugins(config)
     file_name = "out/#{name}-#{version_name}.jar"
     puts file_name.red
 
+    next puts "skip".yellow if File.exists?(file_name)
+
     Dir.mkdir('out') unless Dir.exists?('out')
 
     # download
