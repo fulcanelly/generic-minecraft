@@ -1,16 +1,9 @@
 import asyncio
 import uvloop
-from pyrogram import Client
 import time
 import asyncstdlib.itertools as itertools
 import math
-
-api_id = 741567 #!! 
-api_hash = "29bca2c6df033b2a62fbc6e6c57892c9" #!
-
-uvloop.install()
-
-app = Client("my_account", api_id, api_hash)
+from app import app
 
 
 def is_file(msg):
