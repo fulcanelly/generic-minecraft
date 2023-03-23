@@ -5,6 +5,8 @@ import time
 import asyncstdlib.itertools as itertools
 import math
 from app import app
+from app import taget_chat
+
 import pyrogram
 
 def is_file(msg: pyrogram.types.Message):
@@ -23,8 +25,8 @@ async def main():
     await app.start()
 
     print("getting chat")
-    #app.send_message("me", "hi")
-    chat = await app.get_chat("@sexclubbackups")
+
+    chat = await app.get_chat(taget_chat)
 
     print("getting messages")
     history = app.get_chat_history(chat_id=chat.id)
