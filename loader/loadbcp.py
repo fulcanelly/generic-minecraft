@@ -1,16 +1,16 @@
 import asyncio
+from typing import AsyncIterator, List
 import uvloop
 import time
 import asyncstdlib.itertools as itertools
 import math
 from app import app
+import pyrogram
 
-
-def is_file(msg):
+def is_file(msg: pyrogram.types.Message):
     return msg.document
 
-
-def make_progress(msg):
+def make_progress(msg: pyrogram.types.Message):
     name = msg.document.file_name
     return lambda current, total: print(
         f"""{name}: loaded {current} of {total} ({
@@ -29,7 +29,7 @@ async def main():
     print("getting messages")
     history = app.get_chat_history(chat_id=chat.id)
 
-    to_load = itertools.takewhile(
+    to_load: AsyncIterator[pyrogram.types.Message] = itertools.takewhile(
         is_file, itertools.dropwhile(lambda x: not is_file(x), history)
     )
 
