@@ -5,55 +5,60 @@ require 'net/http'
 require 'cgi'
 require 'colored'
 
-module SpigetApi
-end
 
-class << SpigetApi
-  def get_conn
-    uri = URI"https://api.spiget.org/"
-    Net::HTTP.start(uri.host, uri.port, :use_ssl => true)
-  end
-
-  def make_request(url)
-    pp url
-    get_conn().request(Net::HTTP::Get.new(url)).body
-  end
-
-  def make_json_req(url)
-    make_request(url)
-      .then do
-        JSON.load _1
-      end
-  end
-
-  def last_version(res)
-    make_json_req("https://api.spiget.org/v2/resources/#{res}/versions/latest")
-  end
-
-  def get_versions(res)
-    make_json_req("https://api.spiget.org/v2/resources/#{res}/versions")
-  end
-
-  def download_by_id(res)
-    res = make_request("https://api.spiget.org/v2/resources/#{res}/download")
-    matched = res.match /https:.*/
-    if matched then
-      OpenURI.open_uri(matched[0])
-    else
-      throw "not found"
-    end
-  end
-
-  def get_details(res_id)
-    make_json_req("https://api.spiget.org/v2/resources/#{res_id}")
-  end
-
-  def search_by_name(name)
-    make_json_req("https://api.spiget.org/v2/search/resources/#{
-      CGI.escape(name)
-    }?field=name&size=2")
-  end
-end
+#todo  suply | add | init
+#
+# module SpigetApi
+# end
+#
+# class << SpigetApi
+#   def get_conn
+#     uri = URI"https://api.spiget.org/"
+#     Net::HTTP.start(uri.host, uri.port, :use_ssl => true)
+#   end
+#
+#   def make_request(url)
+#     pp url
+#     get_conn().request(Net::HTTP::Get.new(url)).body
+#   end
+#
+#   def make_json_req(url)
+#     make_request(url)
+#       .then do
+#         JSON.load _1
+#       end
+#   end
+#
+#   def last_version(res)
+#     make_json_req("https://api.spiget.org/v2/resources/#{res}/versions/latest")
+#   end
+#
+#   def get_versions(res)
+#     make_json_req("https://api.spiget.org/v2/resources/#{res}/versions")
+#   end
+#
+#   def download_by_id(res)
+#     res = make_request("https://api.spiget.org/v2/resources/#{res}/download")
+#     matched = res.match /https:.*/
+#     pp matched
+#     puts "^^^"
+#     if matched then
+#       OpenURI.open_uri(matched[0])
+#     else
+#       throw "not found"
+#     end
+#   end
+#
+#   def get_details(res_id)
+#     make_json_req("https://api.spiget.org/v2/resources/#{res_id}")
+#   end
+#
+#   def search_by_name(name)
+#     make_json_req("https://api.spiget.org/v2/search/resources/#{
+#       CGI.escape(name)
+#     }?field=name&size=2")
+#   end
+# end
 
 
 #pp SpigetApi.download_by_id(2333333333332)
@@ -92,17 +97,18 @@ def load_plugins(config)
     plugin = plugins.first
     id = plugin["id"]
 
+
     # get latest version
     last = SpigetApi.last_version(id)
     version_name = last["name"]
 
-    # get file name
-    name = plugin["name"].split(/\s/).first
 
-    file_name = "out/#{name}-#{version_name}.jar"
+    # ship if already present
+    file_name = "out/#{key.to_s}-#{version_name}.jar"
     puts file_name.red
 
     next puts "skip".yellow if File.exist?(file_name)
+
 
     Dir.mkdir('out') unless Dir.exist?('out')
 
