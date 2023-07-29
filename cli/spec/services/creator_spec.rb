@@ -22,19 +22,18 @@ RSpec.describe ConfigGeneratorService, :vcr do
       end
 
       let(:expected_output) do
-        [
-          { :name => "CoreProtect", :resource_id => 8631, :source => :spigot },
-          { :name => "InvSee++", :source => :spigot, :resource_id => 82342 },
-          { :name => "InventProtect-1.3", :source => :unknown },
-          { :name => "ChestSort (+ API)", :source => :spigot, :resource_id => 59773 },
-          { :name => "LuckPerms", :resource_id => 28140, :source => :spigot },
-          { :name => "SinglePlayerSleep", :source => :spigot, :resource_id => 68139 },
-          { :name => "ViaBackwards", :source => :spigot, :resource_id => 27448 },
-          { :name => "InviteSystemCore-1.0", :source => :unknown },
-          { :name => "ProtocolLib", :source => :spigot, :resource_id => 1997 },
-          { :name => "Suicider", :source => :spigot, :resource_id => 8623 },
-          { :name => "ViaVersion", :source => :spigot, :resource_id => 19254 },
-          { :name => "Orebfuscator", :source => :spigot, :resource_id => 22818 }]
+        [{ :name => "CoreProtect", :resource_id => 8631, :source => :spigot },
+         { :name => "InvSee++", :source => :spigot, :resource_id => 82342 },
+         { :name => "InventProtect-1.3", :source => :unknown },
+         { :name => "ChestSort (+ API)", :source => :spigot, :resource_id => 59773 },
+         { :name => "LuckPerms", :resource_id => 28140, :source => :spigot },
+         { :name => "SinglePlayerSleep", :source => :spigot, :resource_id => 68139 },
+         { :name => "ViaBackwards", :source => :spigot, :resource_id => 27448 },
+         { :name => "InviteSystemCore-1.0", :source => :unknown },
+         { :name => "ProtocolLib", :source => :spigot, :resource_id => 1997 },
+         { :name => "Suicider", :source => :spigot, :resource_id => 8623 },
+         { :name => "ViaVersion", :source => :spigot, :resource_id => 19254 },
+         { :name => "Orebfuscator", :source => :spigot, :resource_id => 22818 }]
       end
 
       it 'should try to find source' do
@@ -44,9 +43,18 @@ RSpec.describe ConfigGeneratorService, :vcr do
   end
 
   describe '#verify_plugins' do
+    let(:input_plugins) do
+      [{ :name => "InvSee++", :source => :spigot, :resource_id => 82342 },
+       { :name => "InventProtect-1.3", :source => :unknown }]
+    end
+
+    let(:expected_output) do
+      [{ :warn => "Can't load plugin, unknown source" }]
+    end
+
     context 'when source is unknown' do
-      it 'should produce varning', skip: 'todo' do
-        # verify -> { warn: 'unknown source, can't load plugin' }
+      it 'should produce warning' do
+        expect(described_class.verify_plugins(input_plugins)).to eq(expected_output)
       end
     end
   end

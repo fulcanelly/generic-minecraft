@@ -27,6 +27,18 @@ class ConfigGeneratorService
     end
   end
 
+  def self.verify_plugins(plugins)
+    plugins.map do |plugin|
+      verify_plugin(plugin)
+    end.filter(&:itself)
+  end
+
+  def self.verify_plugin(plugin)
+    if plugin[:source].to_sym == :unknown
+      { warn: "Can't load plugin, unknown source" }
+    end
+  end
+
   def self.plugin_from_zip_file
     # TODO
   end
