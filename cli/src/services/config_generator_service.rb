@@ -1,9 +1,9 @@
-
-
 class ConfigGeneratorService
 
   def self.plugins_from_file_names(names)
-    names.map do plugin_from_file_name(_1) end
+    names.map do
+      plugin_from_file_name(_1)
+    end
   end
 
   private
@@ -17,12 +17,14 @@ class ConfigGeneratorService
       {
         name: data['name'],
         source: :spigot,
-        resource_id: version['resource']
+        resource_id: version['resource'],
+        location: name,
       }
     else
       {
         name: name.split('.jar').first,
-        source: :unknown
+        source: :unknown,
+        location: name,
       }
     end
   end
@@ -35,7 +37,8 @@ class ConfigGeneratorService
 
   def self.verify_plugin(plugin)
     if plugin[:source].to_sym == :unknown
-      { warn: "Can't load plugin, unknown source" }
+      { name: plugin[:name],
+        warn: "Can't load plugin, unknown source" }
     end
   end
 

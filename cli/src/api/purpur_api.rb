@@ -34,24 +34,6 @@ module PurpurApi
 
   def self.download_latest_build(version)
     OpenURI.open_uri("#{PURPUR_API_BASE_URL}#{version}/latest/download",
-        content_length_proc: ->(total) {
-
-            # if total && total > 0
-            #   @total_size = total
-            #   @loaded_size = 0
-            #   puts "Total size: #{@total_size} bytes"
-            # end
-          },
-          progress_proc: ->(size) {
-            state_index += 1
-            load_elements = ["\\", "|", "/", "-"]
-            print "\rLoading: #{load_elements[state_index % load_elements.size]}%"
-
-            # puts @loaded_size
-            # puts @total_size
-            # @loaded_size += size
-            # progress = ((@loaded_size.to_f / @total_size) * 100).round(2)
-            # print "\rLoading: #{progress}%"
-          })
+          progress_proc: AnimationsService.loading_proc)
   end
 end

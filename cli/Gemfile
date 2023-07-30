@@ -19,3 +19,5 @@ gem "steep", "~> 1.5"
 gem "webmock", "~> 3.18"
 
 gem "colored", "~> 1.2"
+
+gem "dry-cli", "~> 1.0"

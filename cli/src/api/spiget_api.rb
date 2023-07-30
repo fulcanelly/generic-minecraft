@@ -21,7 +21,7 @@ module SpigetApi
     res = make_request("https://api.spiget.org/v2/resources/#{res}/download")
     matched = res.match /https:.*/
     if matched then
-      OpenURI.open_uri(matched[0])
+      OpenURI.open_uri(matched[0], progress_proc: AnimationsService.loading_proc)
     else
       throw "not found"
     end
